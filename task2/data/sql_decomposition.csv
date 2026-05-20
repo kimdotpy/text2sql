@@ -1,0 +1,51 @@
+question,intent,tables,columns,filters,joins
+List all products,Retrieve all records,products,"productCode, productName, productLine, productScale, productVendor, productDescription, quantityInStock, buyPrice, MSRP",None,None
+Get all customers,Retrieve all records,customers,*,None,None
+Show all orders,Retrieve all records,orders,*,None,None
+List all employees,Retrieve all records,employees,*,None,None
+Get all offices,Retrieve all records,offices,*,None,None
+Show all product lines,Retrieve all records,productlines,*,None,None
+List all payments,Retrieve all records,payments,*,None,None
+Get product names and prices,Retrieve product names and prices,products,"productName, buyPrice",None,None
+Get customer names and cities,Retrieve customer names and cities,customers,"customerName, city",None,None
+List employee first and last names,Retrieve employee first and last names,employees,"firstName, lastName",None,None
+Get all order dates,Retrieve all order dates,orders,orderDate,None,None
+Show product vendor list,Retrieve list of product vendors,products,productVendor,None,None
+Get all product codes,Retrieve all product codes,products,productCode,None,None
+List all countries from offices,Retrieve all records,offices,country,None,None
+Show all order statuses,Retrieve all records,orders,status,None,None
+Get all payment amounts,Retrieve all payment amounts,payments,amount,None,None
+List all job titles,Retrieve all job titles,employees,jobTitle,None,None
+Get customer phone numbers,Retrieve customer phone numbers,customers,phone,None,None
+Show product MSRP values,Retrieve product MSRP values,products,MSRP,None,None
+List order numbers,Retrieve order numbers,orders,orderNumber,None,None
+Get orders with customer names,Retrieve orders with customer names,"orders, customers","orders.orderNumber, customers.customerName",None,orders.customerNumber = customers.customerNumber
+Get employees with office city,Retrieve employee records,employees,"employeeNumber, lastName, firstName, officeCode",None,None
+Get payments with customer names,Retrieve payments with customer names,"payments, customers","payments.customerNumber, payments.checkNumber, payments.paymentDate, payments.amount, customers.customerName",None,payments.customerNumber = customers.customerNumber
+Get order details with product names,Retrieve order details along with product names,"orderdetails, products","orderdetails.orderNumber, orderdetails.productCode, orderdetails.quantityOrdered, orderdetails.priceEach, orderdetails.orderLineNumber, products.productName",None,orderdetails.productCode = products.productCode
+Get products with product line description,Retrieve product records along with their product line description,"products, productlines","products.productCode, products.productName, products.productLine, productlines.textDescription",None,products.productLine = productlines.productLine
+Get customers with sales rep names,Retrieve customers with their sales representative names,"customers, employees","customers.customerNumber, customers.customerName, customers.salesRepEmployeeNumber, employees.firstName, employees.lastName",None,customers.salesRepEmployeeNumber = employees.employeeNumber
+Get orders with customer city,Retrieve orders with customer city,"orders, customers","orders.orderNumber, orders.orderDate, orders.customerNumber, customers.city",None,orders.customerNumber = customers.customerNumber
+Get employees and their manager,Retrieve employees and their manager,employees,"e.employeeNumber, e.firstName, e.lastName, m.employeeNumber AS managerNumber, m.firstName AS managerFirstName, m.lastName AS managerLastName",None,e.reportsTo = m.employeeNumber
+Get orderdetails with product vendor,Retrieve order details along with product vendor information,"orderdetails, products","orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber, productVendor",None,orderdetails.productCode = products.productCode
+Get payments with customer country,Retrieve payment records with associated customer country,"payments, customers","payments.paymentId, payments.customerNumber, payments.checkNumber, payments.paymentDate, payments.amount, customers.country",None,payments.customerNumber = customers.customerNumber
+Count customers per country,Count customers per country,customers,"country, COUNT(customerNumber) AS customer_count",None,None
+Total payments per customer,Calculate total payments per customer,"customers, payments","customers.customerNumber, SUM(payments.amount) AS totalPayments",None,customers.customerNumber = payments.customerNumber
+Number of orders per status,Count number of orders per status,orders,"status, COUNT(orderNumber) AS order_count",None,None
+Products per product line,Retrieve count of products per product line,"products, productlines","productLine, COUNT(*) AS productCount",None,products.productLine = productlines.productLine
+Employees per office,Count employees per office,"employees, offices","offices.officeCode, COUNT(employees.employeeNumber) AS employee_count",None,employees.officeCode = offices.officeCode
+Total stock per product vendor,Calculate total stock per product vendor,products,"productVendor, SUM(quantityInStock) AS total_stock",None,None
+Average buy price per product line,Calculate average buy price per product line,"products, productlines","productLine, AVG(buyPrice)",None,products.productLine = productlines.productLine
+Orders per customer,Count orders per customer,"customers, orders","customerNumber, COUNT(orderNumber) AS order_count",None,customers.customerNumber = orders.customerNumber
+Max MSRP per product line,Calculate maximum MSRP per product line,"products, productlines","productLine, MAX(MSRP) as max_msrp",None,products.productLine = productlines.productLine
+Min buy price per vendor,Retrieve minimum buy price for each vendor,products,"productVendor, MIN(buyPrice)",None,None
+Total number of customers,Count total,customers,customerNumber,None,None
+Total number of products,Count total number of products,products,productCode,None,None
+Total revenue from payments,Calculate total revenue,payments,SUM(amount) as total_revenue,None,None
+Average product price,Calculate average,products,buyPrice,None,None
+Max payment amount,Retrieve maximum payment amount,payments,amount,None,None
+Min payment amount,Retrieve minimum payment amount,payments,amount,None,None
+Count total orders,Count total orders,orders,orderNumber,None,None
+Total quantity in stock,Calculate total quantity in stock,products,quantityInStock,None,None
+Average MSRP,Calculate average,products,MSRP,None,None
+Number of employees,Count total,employees,employeeNumber,None,None
