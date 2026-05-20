@@ -1,3 +1,6 @@
+.gitignore
 .venv/
 .env
-task3/data/
+
+task3/data/evaluation1.csv/
+task3/data/qa_oss.csv

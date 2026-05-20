@@ -1,4 +1,3 @@
-SCHEMA_CONTEXT = """
 -- Drop tables safely (order + CASCADE matters)
 DROP TABLE IF EXISTS orderdetails CASCADE;
 DROP TABLE IF EXISTS orders CASCADE;
@@ -102,51 +101,3 @@ CREATE TABLE orderdetails (
   FOREIGN KEY ("orderNumber") REFERENCES orders("orderNumber"),
   FOREIGN KEY ("productCode") REFERENCES products("productCode")
 );
-"""
-
-DECOMPOSITION_PROMPT = """
-You are a SQL decomposition expert.
-Analyze the following natural language query and extract a JSON object containing:
-- "Intent": What is the user asking for?
-- "Tables": Which tables from the database are needed? (Comma-separated)
-- "Columns": Which columns are needed? (Comma-separated)
-- "Filters": What are the filtering conditions (WHERE)? (None if not applicable)
-- "Joins": What joins are needed? (None if not applicable)
-
-Respond ONLY with valid JSON. Do not include markdown code blocks, just raw JSON.
-
-Query: {question}
-"""
-
-GENERATION_PROMPT = """
-You are an expert PostgreSQL developer. 
-Using the database schema and the provided decomposition logic, write a highly optimized PostgreSQL SELECT query to answer the user's question.
-Return ONLY the raw SQL string. Do not include markdown formatting, code blocks like ```sql, or explanations. 
-Just the query starting with SELECT and ending with a semicolon. 
-DO NOT use double quotes around column or table names. Use the unquoted identifier names as shown in the expected queries.
-
-Database Schema:
-{schema}
-
-Decomposition:
-{decomposition}
-
-User Question: {question}
-"""
-
-FIX_PROMPT = """
-You are an expert PostgreSQL debugger. 
-The following SQL query failed with an error when executed against the database.
-Fix the SQL query based on the error message. 
-Return ONLY the raw fixed SQL string. Do not include markdown formatting, code blocks like ```sql, or explanations.
-DO NOT use double quotes around column or table names.
-
-Database Schema:
-{schema}
-
-Original Failed Query:
-{failed_query}
-
-Error Message:
-{error_message}
-"""
