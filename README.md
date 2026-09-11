@@ -1,5 +1,4 @@
-# Week 3 tasks
-## Text2Sql
+# Text2Sql
 
 1. [Task 1](task2/data/sql_qa.csv)
 2. Task 2
